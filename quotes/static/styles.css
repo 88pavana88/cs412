@@ -1,0 +1,80 @@
+body {
+    background-color: #e2bcd8;
+    font-family: "Papyrus", "Celtic Garamond", fantasy;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 19.5px;
+    font-weight: bold;
+}
+
+h1 {
+    color: #c1075e;
+    font-size: 60px;
+}
+
+h2 {
+    color: #753c56;
+    font-size: 38px;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+    border: 4px solid #c1075e;
+}
+
+table {
+    margin: 20px auto; 
+    border-collapse: collapse; 
+}
+
+table.act td {
+    width: 300px;
+    text-align: center;
+    vertical-align: middle;
+    border: 4px solid #c1075e;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    background-color: #c1075e;
+    display: flex;
+    justify-content: center;   
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    padding: 14px 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    background-color: #753c56;
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin: 10px auto;
+}
+
+a {
+    color: #c1075e;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+td img {
+    vertical-align: middle;
+}
