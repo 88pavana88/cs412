@@ -20,5 +20,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("quotes.urls")),
+    path("", include("restaurant.urls")), # put restaurant's url first to make it route automatically to its homepage instead of quotes'
+    path("quotes/", include("quotes.urls")),
+    
 ]

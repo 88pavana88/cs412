@@ -1,0 +1,62 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block title %}Order{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Place Your Order</h1>
+
+    <form action="{% url 'confirmation' %}" method="POST">
+        {% csrf_token %} <!-- adding csrf token as said in assignment directions for protections -->
+
+        <h2>Select Your Popcorn:</h2>
+        
+        <label>
+            <input type="checkbox" name="items" value="Buttered Popcorn,5.00">
+            Buttered Popcorn ($5.00)
+        </label>
+        
+        <label> <!-- adding option for extra butter -->
+            <input type="checkbox" name="extras" value="Extra Butter,0.50">      
+            Add Extra Butter (+$0.50)
+        </label>
+        <label> <!-- adding option for extra salt -->
+            <input type="checkbox" name="extras" value="Extra Salt,0.50">
+            Add Extra Salt (+$0.50)
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="items" value="Caramel Popcorn,6.50">
+            Caramel Popcorn ($6.50)
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="items" value="Cheddar Popcorn,7.00">
+            Cheddar Popcorn ($7.00)
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="items" value="Cookie Batter Popcorn,8.00">
+            Cookie Batter Popcorn ($8.00)
+        </label><br>
+
+        <h2>Today's Special: {{ daily_special }}</h2> <!-- the generated daily special will display -->
+        <label>
+            <input type="checkbox" name="items" value="{{ daily_special }},6.00">
+            {{ daily_special }} ($6.00)
+        </label><br>
+
+        <h2>Special Instructions</h2>
+        <textarea name="instructions" rows="3" cols="40"></textarea><br> 
+
+        <h2>Customer Information</h2> <!-- making all of the following user info mandatory for submission of form-->
+        Name: <input type="text" name="name" required><br>
+        Phone: <input type="text" name="phone" required><br>
+        Email: <input type="email" name="email" required><br>
+
+        <h2>Place Your Order!</h2>
+        <input type="submit" value="Submit Order">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block title %}Pavana’s Popcorneria{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Welcome to Pavana’s Popcorneria!</h1>
+    <p>No one does popcorn like Pavana. That's why we have the best popcorn flavors in town!</p>
+    
+     <!-- i generated this image from ChatGPT.com so that it would say my name -->
+    <img src="{% static 'popcorn.JPEG' %}" alt="Popcorn Stand" width="500px">
+ 
+    <h2>Hours of Operation</h2>
+    <ul>
+        <li>Monday - Friday: 9 AM - 5 PM</li>
+        <li>Saturday - Sunday: 12 PM - 4 PM</li>
+    </ul>
+</div>
+{% endblock %}

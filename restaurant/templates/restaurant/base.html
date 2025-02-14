@@ -1,0 +1,22 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>{% block title %}Pavana’s Popcorneria{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+
+    <nav>
+        <ul>
+            <!-- linking to the main homepage & order page -->
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li><a href="{% url 'order' %}">Order</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    </body>
+</html>
