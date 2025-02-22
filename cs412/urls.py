@@ -22,5 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("restaurant.urls")), # put restaurant's url first to make it route automatically to its homepage instead of quotes'
     path("quotes/", include("quotes.urls")),
+    path("mini_fb/", include("mini_fb.urls")), # new for mini fb
     
 ]

@@ -1,0 +1,21 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<!-- show user's full name as heading -->
+<h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+<main class="grid-container">
+    <article class="featured">
+        <!-- show user's profile pic if they have -->
+        {% if profile.profile_image_url %}
+        <img src="{{ profile.profile_image_url }}" alt="Profile Image">
+        {% endif %}
+        <div>
+            <!-- show user's info -->
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            <strong>City: {{ profile.city }}</strong>
+            <p>Email: {{ profile.email }}</p>
+        </div>
+    </article>
+</main>
+
+{% endblock %}
