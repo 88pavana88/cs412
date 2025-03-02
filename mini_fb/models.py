@@ -33,9 +33,9 @@ class Profile(models.Model):
 class StatusMessage(models.Model):
     '''Encapsulate the idea of a status message on Mini Facebook.'''
     
-    timestamp = models.DateTimeField(auto_now_add=True)  # Automatically set when created
-    message = models.TextField(blank=False)  # Status message content
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)  # Link to Profile
+    timestamp = models.DateTimeField(auto_now_add=True)  
+    message = models.TextField(blank=False)  # Status message 
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)  # Link to profile
 
     def __str__(self):
         '''Return a string representation of this StatusMessage.'''
