@@ -24,7 +24,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("mini_fb.urls")), # put restaurant's url first to make it route automatically to its homepage instead of quotes'
+    path("", include("mini_fb.urls")), # automaticall routes local host to mini fb
     path("quotes/", include("quotes.urls")),
     path("mini_fb/", include("mini_fb.urls")), # new for mini fb
     

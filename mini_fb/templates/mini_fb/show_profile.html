@@ -1,4 +1,4 @@
-<!-- # File: base.html
+<!-- # File: show_profile.html
 # Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
 # Description: The code provides the display for the page showing individual profiles on Minif FB
 -->
@@ -16,7 +16,6 @@
         {% endif %}
         <div>
             <!-- show user's info -->
-            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
             <strong>City: {{ profile.city }}</strong>
             <p>Email: {{ profile.email }}</p>
         </div>
@@ -35,6 +34,12 @@
             {% endfor %}
         </div>
     
+        <div>
+            <h3>
+                <a href="{% url 'create_status' profile.pk %}">Create Status</a>
+            </h3>
+        </div>
+        
 </main>
 
 {% endblock %}

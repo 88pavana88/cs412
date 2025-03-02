@@ -1,0 +1,21 @@
+<!-- # File: create_status_form.html
+# Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
+# Description: The code provides the basic required display of the page adding a status on a user's profile for this app
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h2>Post a status message for {{ profile.first_name }} {{ profile.last_name }}</h2>
+
+<form action="{% url 'create_status' profile.pk %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Create Status">
+    <a href="{% url 'show_profile' profile.pk %}">
+        <button type="button">Cancel</button>
+    </a>
+</form>
+{% endblock %}
