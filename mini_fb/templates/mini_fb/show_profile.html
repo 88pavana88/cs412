@@ -1,3 +1,8 @@
+<!-- # File: base.html
+# Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
+# Description: The code provides the display for the page showing individual profiles on Minif FB
+-->
+
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
@@ -16,6 +21,20 @@
             <p>Email: {{ profile.email }}</p>
         </div>
     </article>
+
+        <!-- show status messages -->
+        <div>
+            <h2>Status Messages</h2>
+            {% for status in profile.get_status_messages %}
+            <article>
+                <p><strong>{{ status.timestamp }}</strong></p>
+                <p>{{ status.message }}</p>
+            </article>
+            {% empty %}
+            <p>No status messages yet.</p>
+            {% endfor %}
+        </div>
+    
 </main>
 
 {% endblock %}

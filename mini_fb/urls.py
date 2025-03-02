@@ -1,5 +1,5 @@
 # File: urls.py
-# Author: Pavana Manoj (pavana@bu.edu), 02/22/2025
+# Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
 # Description: Sets URLs for page displaying all profiles and a page for displaying individual profiles
 
 from django.urls import path
