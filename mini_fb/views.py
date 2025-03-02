@@ -34,8 +34,7 @@ class CreateProfileView(CreateView):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
 
 class CreateStatusMessageView(CreateView):
-    '''Creates a new StatusMessage.'''
-    
+    '''Creates a new StatusMessage.''' 
     form_class = CreateStatusMessageForm
     template_name = "mini_fb/create_status_form.html"
 
