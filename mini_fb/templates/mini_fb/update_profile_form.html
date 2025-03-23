@@ -1,0 +1,27 @@
+<!-- # File: update_profile_form.html
+# Author: Pavana Manoj (pavana@bu.edu), 03/23/2025
+# Description: The code provides the HTML form to update an existing user's profile in Mini FB
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h2>Update Profile</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+        <tr>
+            <th>{{ field.label_tag }}</th>
+            <td>{{ field }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <input type="submit" value="Update Profile">
+    <a href="{% url 'show_profile' object.pk %}">
+        <button type="button">Cancel</button>
+    </a>
+</form>
+{% endblock %}

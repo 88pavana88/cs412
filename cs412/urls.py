@@ -21,11 +21,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("mini_fb.urls")), # automaticall routes local host to mini fb
+    path("", include("mini_fb.urls")), # automatically routes local host to mini fb
     path("quotes/", include("quotes.urls")),
-    path("mini_fb/", include("mini_fb.urls")), # new for mini fb
-    
-]
+    path("mini_fb/", include("mini_fb.urls")), # new for mini fb    
+]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # to show static and image files on mini FB

@@ -1,0 +1,40 @@
+<!-- # File: news_feed.html
+# Author: Pavana Manoj (pavana@bu.edu), 03/23/2025
+# Description: This code shows the news feed for a user's profile with posts from the user and their friends.
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h1>MiniFacebook</h1>
+
+<!-- nav links -->
+<div>
+    <a href="{% url 'show_all_profiles' %}"><button>All Profiles</button></a>
+    <a href="{% url 'show_profile' profile.pk %}"><button>Profile Page</button></a>
+    <a href="{% url 'news_feed' profile.pk %}"><button>News Feed</button></a>
+</div>
+
+<hr>
+
+<!-- displaying news feed -->
+{% for status in profile.get_news_feed %}
+<div>
+    <div>
+        {% if status.profile.profile_image_url %}
+            <img src="{{ status.profile.profile_image_url }}" alt="Profile">
+        {% endif %}
+        <strong>{{ status.profile.first_name }} {{ status.profile.last_name }}</strong>
+        <span>{{ status.timestamp }}</span>
+    </div>
+    <p>{{ status.message }}</p>
+    {% for img in status.get_images %}
+        <img src="{{ img.image_file.url }}" alt="status image"><br>
+    {% endfor %}
+    <hr>
+</div>
+{% empty %}
+<p>Nothing to show yet</p>
+{% endfor %}
+
+{% endblock %}

@@ -1,6 +1,10 @@
 <!-- # File: show_profile.html
-# Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
+# Author: Pavana Manoj (pavana@bu.edu), 03/23/2025
 # Description: The code provides the display for the page showing individual profiles on Minif FB
+# Added update profile feature 
+# added create status & delete feature
+# added friends and friend suggestions features
+# news feed link added
 -->
 
 {% extends 'mini_fb/base.html' %}
@@ -28,6 +32,21 @@
             <article>
                 <p><strong>{{ status.timestamp }}</strong></p>
                 <p>{{ status.message }}</p>
+
+                <!-- buttons for update & delete -->
+                <a href="{% url 'update_status' status.pk %}">
+                    <button type="button">Update</button>
+                </a>
+                <a href="{% url 'delete_status' status.pk %}">
+                    <button type="button">Delete</button>
+                </a>
+
+                <!-- show images for status message -->
+                {% for img in status.get_images %}
+                    <img src="{{ img.image_file.url }}" alt="{{ img.image_file.url }}">
+                    <p>{{ img.caption }}</p>
+                {% endfor %}
+
             </article>
             {% empty %}
             <p>No status messages yet.</p>
@@ -35,11 +54,46 @@
         </div>
     
         <div>
-            <h3>
-                <a href="{% url 'create_status' profile.pk %}">Create Status</a>
+            <h3>  <!-- buttons for updating profile and creating status, changed from links to buttons -->
+                <a href="{% url 'create_status' profile.pk %}">
+                    <button type="button">Create Status</button>
+                </a>
+                <a href="{% url 'update_profile' profile.pk %}">
+                    <button type="button">Update Profile</button>
+                </a>
+                <a href="{% url 'news_feed' profile.pk %}">
+                    <button type="button">News Feed</button>
+                </a>
+                
+                
             </h3>
         </div>
+
+        <!-- displays a user's friends -->
+        <div>
+            <h2>{{ profile.first_name }}'s friends</h2>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                {% for friend in profile.get_friends %}
+                <div style="text-align: center;">
+                    <a href="{% url 'show_profile' friend.pk %}">
+                        {% if friend.profile_image_url %}
+                        <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }}" width="100">
+                        {% endif %}
+                        <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+                    </a>
+                </div>
+                {% empty %}
+                <p>{{ profile.first_name }} has no friends yet.</p>
+                {% endfor %}
+            </div>
+        </div>       
         
+        <!-- button to see friend suggestions -->
+        <div style>
+            <a href="{% url 'friend_suggestions' profile.pk %}">
+                <button type="button">Friend Suggestions</button>
+            </a>
+        </div>         
 </main>
 
 {% endblock %}

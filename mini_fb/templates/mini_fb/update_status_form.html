@@ -1,0 +1,20 @@
+<!-- 
+# File: update_status_form.html
+# Author: Pavana Manoj (pavana@bu.edu), 03/23/2025
+# Description: The code allows a user to update an existing status message in Mini FB
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h2>Update Status Message</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+    <a href="{% url 'show_profile' object.profile.pk %}">
+        <button type="button">Cancel</button>
+    </a>
+</form>
+{% endblock %}

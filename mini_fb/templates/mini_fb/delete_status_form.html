@@ -1,0 +1,24 @@
+<!-- 
+# File: delete_status_form.html
+# Author: Pavana Manoj (pavana@bu.edu), 03/23/2025
+# Description: The code provides the form to confirm or cancel deleting a status message
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h2>Delete Status Message?</h2>
+<p><strong>{{ status.message }}</strong></p>
+<p>{{ status.timestamp }}</p>
+
+<h3>Are you sure you want to delete this status message?</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes">
+</form>
+
+<form method="GET" action="{% url 'show_profile' status.profile.pk %}">
+    <input type="submit" value="No">
+</form>
+{% endblock %}
