@@ -34,12 +34,14 @@
                 <p>{{ status.message }}</p>
 
                 <!-- buttons for update & delete -->
+                {% if request.user == profile.user %}
                 <a href="{% url 'update_status' status.pk %}">
                     <button type="button">Update</button>
                 </a>
                 <a href="{% url 'delete_status' status.pk %}">
                     <button type="button">Delete</button>
                 </a>
+                {% endif %}
 
                 <!-- show images for status message -->
                 {% for img in status.get_images %}
@@ -53,21 +55,21 @@
             {% endfor %}
         </div>
     
+        {% if request.user == profile.user %}
         <div>
             <h3>  <!-- buttons for updating profile and creating status, changed from links to buttons -->
-                <a href="{% url 'create_status' profile.pk %}">
+                <a href="{% url 'create_status' %}">
                     <button type="button">Create Status</button>
                 </a>
-                <a href="{% url 'update_profile' profile.pk %}">
+                <a href="{% url 'update_profile' %}">
                     <button type="button">Update Profile</button>
                 </a>
-                <a href="{% url 'news_feed' profile.pk %}">
+                <a href="{% url 'news_feed' %}">
                     <button type="button">News Feed</button>
                 </a>
-                
-                
             </h3>
         </div>
+        {% endif %}
 
         <!-- displays a user's friends -->
         <div>
@@ -89,11 +91,13 @@
         </div>       
         
         <!-- button to see friend suggestions -->
+        {% if request.user == profile.user %}
         <div style>
-            <a href="{% url 'friend_suggestions' profile.pk %}">
+            <a href="{% url 'friend_suggestions' %}">
                 <button type="button">Friend Suggestions</button>
             </a>
-        </div>         
+        </div>
+        {% endif %}         
 </main>
 
 {% endblock %}

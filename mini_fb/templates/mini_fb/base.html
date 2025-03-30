@@ -1,27 +1,87 @@
-<!-- # File: base.html
-# Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
-# Description: The code provides the basic required display of all html pages for this app
+<!-- File: base.html
+Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
+Description: Base template for Mini Facebook with navigation links and login/logout.
 -->
 
 {% load static %}
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Mini Facebook</title>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
-        <header>
-            <h1>Mini Facebook</h1>
-            <nav>
-                <!-- adding link to page showing all profiles for nav-->
-                <ul>
-                    <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
-                    <li><a href="{% url 'create_profile' %}">Create Profile</a></li> <!-- New link for create profile page -->
-                </ul>
-            </nav>
-        </header>
+<head>
+    <title>Mini Facebook</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* I used ChatGPT.com for the styling of the log out button so that'd it match the other nav link styles */
+        .nav-link-button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            text-decoration: underline;
+            vertical-align: baseline;
+        }
 
-        {% block content %}
-        {% endblock %}
-    </body>
+        .nav-link-button:hover {
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5rem; 
+            align-items: baseline;
+        }
+
+        nav li {
+            display: inline;
+        }
+
+        .logout-link {
+            margin-left: 2rem; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mini Facebook</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+                <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+
+                {% if request.user.is_authenticated %}
+                    {% if request.user.profile %}
+                        <li><a href="{% url 'show_profile' request.user.profile.pk %}">My Profile</a></li>
+                        <li><a href="{% url 'news_feed' %}">News Feed</a></li>
+                        <li><a href="{% url 'friend_suggestions' %}">Friend Suggestions</a></li>
+                        <li><a href="{% url 'update_profile' %}">Update Profile</a></li>
+                        <li><a href="{% url 'create_status' %}">Create Status</a></li>
+                    {% endif %}
+                    <li class="logout-link">
+                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link-button">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+
+            <p>
+                {% if request.user.is_authenticated %}
+                    Logged in as: {{ request.user }}
+                {% else %}
+                    Not logged in.
+                {% endif %}
+            </p>
+        </nav>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+</body>
 </html>

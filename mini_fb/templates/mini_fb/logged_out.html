@@ -1,0 +1,12 @@
+<!-- 
+# File: logged_out.html
+# Author: Pavana Manoj (pavana@bu.edu), 03/30/2025
+# Description: Confirmation page shown after user logs out.
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h2>You've logged out.</h2>
+<a href="{% url 'login' %}">Log in again</a>
+{% endblock %}

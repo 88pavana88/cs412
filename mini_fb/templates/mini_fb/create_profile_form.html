@@ -1,6 +1,7 @@
 <!-- # File: create_profile_form.html
 # Author: Pavana Manoj (pavana@bu.edu), 03/01/2025
 # Description: The code provides the basic required display of the create profile page for this app
+# Updated to include Django UserCreationForm along with CreateProfileForm
 -->
 
 {% extends 'mini_fb/base.html' %}
@@ -11,9 +12,17 @@
 <div class="profile-form">
     <form action="{% url 'create_profile' %}" method="POST">
         {% csrf_token %}
+
+        <h3>Account Information</h3>
+        <table>
+            {{ user_form.as_table }}
+        </table>
+
+        <h3>Profile Information</h3>
         <table>
             {{ form.as_table }}
         </table>
+
         <input type="submit" value="Create Profile!">
         <a href="{% url 'show_all_profiles' %}"><button type="button">Cancel</button></a>
     </form>

@@ -6,9 +6,9 @@
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
-<h2>Post a status message for {{ profile.first_name }} {{ profile.last_name }}</h2>
+<h2>Post a status message for {{ request.user.first_name }} {{ request.user.last_name }}</h2>
 
-<form action="{% url 'create_status' profile.pk %}" method="POST" enctype="multipart/form-data">
+<form action="{% url 'create_status' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         {{ form.as_table }}
@@ -23,5 +23,6 @@
     <a href="{% url 'show_profile' profile.pk %}">
         <button type="button">Cancel</button>
     </a>
+    
 </form>
 {% endblock %}

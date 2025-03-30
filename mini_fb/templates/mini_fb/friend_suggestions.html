@@ -12,7 +12,7 @@
 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
     {% for suggestion in suggestions %}
     <div style="text-align: center;">
-        <a href="{% url 'add_friend' profile.pk suggestion.pk %}">
+        <a href="{% url 'add_friend' suggestion.pk %}">
             <button>Add Friend</button>
         </a>
         <a href="{% url 'show_profile' suggestion.pk %}">
