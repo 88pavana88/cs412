@@ -30,4 +30,5 @@ urlpatterns = [
     path("", include("mini_fb.urls")), # automatically routes local host to mini fb
     path("quotes/", include("quotes.urls")),
     path("mini_fb/", include("mini_fb.urls")), # new for mini fb    
+    path('voter_analytics/', include('voter_analytics.urls')),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # to show static and image files on mini FB
