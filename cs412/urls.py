@@ -27,7 +27,7 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("mini_fb.urls")), # automatically routes local host to mini fb
+    path("", include("voter_analytics.urls")), # automatically routes local host to voter_analytics
     path("quotes/", include("quotes.urls")),
     path("mini_fb/", include("mini_fb.urls")), # new for mini fb    
     path('voter_analytics/', include('voter_analytics.urls')),

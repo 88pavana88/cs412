@@ -1,0 +1,32 @@
+<!-- 
+File: voter.html
+Author: Pavana Manoj 4/6/2025
+Description: takes you here to individual voter info when you click on their name
+-->
+
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+<div class="container">
+  <h1>Voter Detail</h1>
+
+  <p><b>Name:</b> {{ voter.first_name }} {{ voter.last_name }}</p>
+  <p><b>Address:</b> {{ voter.street_number }} {{ voter.street_name }}{% if voter.apartment_number and voter.apartment_number.strip %}, Apt {{ voter.apartment_number }}{% endif %}</p>
+  <p><b>Date of Birth:</b> {{ voter.date_of_birth }}</p>
+  <p><b>Date of Registration:</b> {{ voter.date_of_registration }}</p>
+  <p><b>Party Affiliation:</b> "{{ voter.party_affiliation }}"</p>
+  <p><b>Voter Score:</b> {{ voter.voter_score }}</p>
+
+  <h3><b>Voted in:</b></h3>
+  <ul>
+    <li>2020 State: {{ voter.v20state }}</li>
+    <li>2021 Town: {{ voter.v21town }}</li>
+    <li>2021 Primary: {{ voter.v21primary }}</li>
+    <li>2022 General: {{ voter.v22general }}</li>
+    <li>2023 Town: {{ voter.v23town }}</li>
+  </ul>
+  
+  <p>
+    <a href="https://www.google.com/maps/search/?api=1&query={{ voter.street_number }}+{{ voter.street_name }}+{{ voter.zip_code }}" target="_blank"> View Address on Google Maps</a>
+  </p>
+</div>
+{% endblock %}

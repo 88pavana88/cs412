@@ -1,82 +1,60 @@
 # File: models.py
-# Author: Pavana Manoj (pavana@bu.edu), 04/04/2025
-# Description: the code in this file defines the voter model, and specifies what data is needed for each voter
-# includes a load_data function to import voter data from a csv file into the db
+# Author: Pavana Manoj (pavana@bu.edu), 04/06/2025
+# Description: Defines the Voter model representing Newton, MA voters and a function to load voter data from a CSV file into the database.
 
 from django.db import models
-import csv
-from datetime import datetime
-# Create your models here.
 
 class Voter(models.Model):
-    '''model representing a registered voter in newton, ma'''
-
-    # name
+    '''Represents a registered voter and their voting history.'''
     first_name = models.TextField()
     last_name = models.TextField()
-
-    # address
     street_number = models.TextField()
     street_name = models.TextField()
-    apartment_number = models.TextField(blank=True)
+    apartment_number = models.TextField(blank=True, null=True)
     zip_code = models.CharField(max_length=10)
-
-    # dates
     date_of_birth = models.DateField()
     date_of_registration = models.DateField()
-
-    # other info
-    party = models.CharField(max_length=2)
-    precinct = models.CharField(max_length=10)
-
-    # voting participation
-    v20state = models.CharField(max_length=1)
-    v21town = models.CharField(max_length=1)
-    v21primary = models.CharField(max_length=1)
-    v22general = models.CharField(max_length=1)
-    v23town = models.CharField(max_length=1)
-
-    # score
+    party_affiliation = models.CharField(max_length=2)
+    precinct_number = models.CharField(max_length=10)
+    v20state = models.BooleanField()
+    v21town = models.BooleanField()
+    v21primary = models.BooleanField()
+    v22general = models.BooleanField()
+    v23town = models.BooleanField()
     voter_score = models.IntegerField()
 
     def __str__(self):
-        '''return a string representation of this model instance'''
-        return f'{self.first_name} {self.last_name}, {self.street_number} {self.street_name}, precinct {self.precinct}'
+        '''string representation of voter model'''
+        return f'{self.first_name} {self.last_name} ({self.party_affiliation.strip()})'
 
 def load_data():
-    '''Load voters from CSV into the database'''
-
-    from .models import Voter
-
-    Voter.objects.all().delete()
-
-    path = 'C:/Users/Pavana/OneDrive/Desktop/django/voter_analytics/data/newton_voters.csv'
-    with open(path, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-
-        for row in reader:
-            try:
-                v = Voter(
-                    first_name = row['First Name'],
-                    last_name = row['Last Name'],
-                    street_number = row['Residential Address - Street Number'],
-                    street_name = row['Residential Address - Street Name'],
-                    apartment_number = row['Residential Address - Apartment Number'],
-                    zip_code = row['Residential Address - Zip Code'],
-                    date_of_birth = datetime.strptime(row['Date of Birth'], '%Y-%m-%d'),
-                    date_of_registration = datetime.strptime(row['Date of Registration'], '%Y-%m-%d'),
-                    party = row['Party Affiliation'],
-                    precinct = row['Precinct Number'],
-                    v20state = row['v20state'],
-                    v21town = row['v21town'],
-                    v21primary = row['v21primary'],
-                    v22general = row['v22general'],
-                    v23town = row['v23town'],
-                    voter_score = int(row['voter_score'])
-                )
-                v.save()
-            except Exception as e:
-                print(f"Error with row: {row}")
-                print(e)
-
-    print(f'Done. Created {Voter.objects.count()} voters.')
+    '''Reads voter data from a CSV and stores it in the db'''
+    filename = 'C:/Users/Pavana/OneDrive/Desktop/django/newton_voters.csv'
+    f = open(filename)
+    f.readline()
+    for line in f:
+        fields = line.split(',')
+        try:
+            voter = Voter(
+                last_name=fields[1],
+                first_name=fields[2],
+                street_number=fields[3],
+                street_name=fields[4],
+                apartment_number=fields[5],
+                zip_code=fields[6],
+                date_of_birth=fields[7],
+                date_of_registration=fields[8],
+                party_affiliation=fields[9],
+                precinct_number=fields[10],
+                v20state=fields[11] == "TRUE",
+                v21town=fields[12] == "TRUE",
+                v21primary=fields[13] == "TRUE",
+                v22general=fields[14] == "TRUE",
+                v23town=fields[15] == "TRUE",
+                voter_score=int(fields[16]),
+            )
+            voter.save()
+            print(f'Created voter: {voter}')
+        except:
+            print(f'Skipped over: {fields}')
+    print(f'Successfully created {len(Voter.objects.all())} voters.')
