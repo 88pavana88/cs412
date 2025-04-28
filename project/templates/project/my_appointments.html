@@ -1,0 +1,67 @@
+<!-- 
+File: my_appointments.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: User and admin view for managing appointments.
+-->
+
+{% extends "project/base.html" %} 
+
+{% block content %}
+
+<h2>My Appointments</h2>
+{% if appointments %}
+  <div class="service-container">
+    {% for appt in appointments %}
+      <div class="service-card">
+        <!-- showing appointment details -->
+        <p><strong>{{ appt.date|date:"F j, Y" }}</strong> at <strong>{{ appt.time }}</strong></p>
+        <p>{{ appt.service.name }} with {{ appt.technician }}</p>
+        <p>Status: <strong>{{ appt.status|lower }}</strong></p>
+        <!-- showing actions based on status -->
+        {% if appt.status|lower == "scheduled" %}
+          {% if user.is_superuser %}
+          <!-- allowing nail salon admin to mark appointmnet complete or cancel appointment-->
+            <form method="post" action="{% url 'complete_appointment' appt.pk %}" class="inline-form">
+              {% csrf_token %}
+              <button type="submit" class="complete-btn">Complete</button>
+            </form>
+            <form method="post" action="{% url 'cancel_appointment' appt.pk %}" class="inline-form">
+              {% csrf_token %}
+              <button type="submit" class="cancel-btn">Cancel</button>
+            </form>
+          {% else %}
+            <!-- allowing customer user to cancel -->
+            <form method="post" action="{% url 'cancel_appointment' appt.pk %}" class="inline-form">
+              {% csrf_token %}
+              <button type="submit" class="cancel-btn">Cancel</button>
+            </form>
+          {% endif %}
+        {% elif appt.status|lower == "completed" and not user.is_superuser %}
+          {% if appt.review_set.exists %}
+            <!-- allowing user to edit/delete existing reviews of theirs-->
+            {% for review in appt.review_set.all %}
+              <p><strong>Review:</strong> {{ review.rating }}/5 - {{ review.comment }}</p>
+              <p>
+                <a href="{% url 'edit_review' review.pk %}" class="review-action-btn edit-review-btn">Edit Review</a>
+                <a href="{% url 'delete_review' review.pk %}" class="review-action-btn delete-review-btn">Delete Review</a>
+              </p>
+            {% endfor %}
+          {% else %}
+            <!-- allowing user to leave a review -->
+            <p>
+              <a href="{% url 'create_review' appt.pk %}" class="review-link blue">
+                Leave a Review
+              </a>
+            </p>
+          {% endif %}
+        {% endif %}
+        {% if appt.notes %}
+          <p><strong>Notes:</strong> {{ appt.notes }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>You don't have any scheduled appointments.</p>
+{% endif %}
+{% endblock %}

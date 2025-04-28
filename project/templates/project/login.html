@@ -1,0 +1,27 @@
+<!-- File: login.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Template for logging in.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <!-- displaying login form -->
+  <div class="service-container">
+    <div class="service-card wide-card">
+      <h2>Login to Book an Appointment</h2>
+      <!-- submitting login credentials -->
+      <form method="post" class="appointment-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{% url 'service_list' %}">
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+      <!-- linking to registration page -->
+      <p class="login-reminder">
+        Don't have an account?
+        <a href="{% url 'register' %}" class="back-link">Register here</a>.
+      </p>
+    </div>
+  </div>
+{% endblock %}

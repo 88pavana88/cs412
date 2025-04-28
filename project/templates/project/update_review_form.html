@@ -1,0 +1,21 @@
+<!-- 
+File: update_review_form.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Template for updating a customer review for an appointment.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <div class="service-container">
+    <div class="service-card wide-card">
+      <h2>Edit Your Review</h2>
+      <form method="post" class="appointment-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit-btn">Update Review</button>
+      </form>
+      <p><a href="{% url 'my_appointments' %}" class="back-link">← Back to My Appointments</a></p>
+    </div>
+  </div>
+{% endblock %}

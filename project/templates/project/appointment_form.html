@@ -1,0 +1,15 @@
+<!-- File: appointment_form.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Template for booking a new appointment.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <h2>Book Appointment</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Book</button>
+  </form>
+{% endblock %}

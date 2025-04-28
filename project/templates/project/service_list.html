@@ -1,0 +1,19 @@
+<!-- 
+File: service_list.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Lists all available services with links to detail pages.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <h1>Available Services</h1>
+  <div class="service-container">
+    {% for service in object_list %}
+      <div class="service-card">
+        <h3><a href="{% url 'service_detail' service.pk %}">{{ service.name }}</a></h3>
+        <p>Price: ${{ service.price }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

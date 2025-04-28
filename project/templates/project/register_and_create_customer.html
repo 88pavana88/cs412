@@ -1,0 +1,44 @@
+<!-- 
+File: register_and_create_customer.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: User account and customer profile registration form.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <!-- showing registration form -->
+  <div class="service-container">
+    <div class="service-card wide-card">
+      <h2>Create an Account & Profile</h2>
+
+      <!-- submitting user and profile info -->
+      <form method="post" class="appointment-form">
+        {% csrf_token %}
+
+        <!-- getting account info -->
+        <h3>Create Account</h3>
+        <div class="form-group">
+          {{ user_form.as_p }}
+        </div>
+
+        <!-- getting customer profile info -->
+        <h3>Create Profile</h3>
+        <div class="form-group">
+          {{ customer_form.as_p }}
+        </div>
+
+        <!-- notifying of any form errors upon submission attempt-->
+        {% if user_form.errors %}
+          <p class="form-error">{{ user_form.errors }}</p>
+        {% endif %}
+
+        {% if customer_form.errors %}
+          <p class="form-error">{{ customer_form.errors }}</p>
+        {% endif %}
+
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

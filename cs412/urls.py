@@ -27,8 +27,9 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("voter_analytics.urls")), # automatically routes local host to voter_analytics
+    path("", include("project.urls")), # automatically routes local host to voter_analytics
     path("quotes/", include("quotes.urls")),
     path("mini_fb/", include("mini_fb.urls")), # new for mini fb    
     path('voter_analytics/', include('voter_analytics.urls')),
+    path("nail_salon/", include("project.urls")), # for final project app
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # to show static and image files on mini FB

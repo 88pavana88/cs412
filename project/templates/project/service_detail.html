@@ -1,0 +1,59 @@
+<!-- 
+File: service_detail.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Displays service details and allows logged-in users to book an appointment.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <!-- showing service details -->
+  <div class="service-container">
+    <div class="service-card">
+      <h2>{{ object.name }}</h2>
+      <p><strong>Duration:</strong> {{ object.duration }} minutes</p>
+      <p><strong>Price:</strong> ${{ object.price }}</p>
+      <p><strong>Description:</strong> {{ object.description }}</p>
+    </div>
+    <div class="service-card">
+      <h3>Book This Service</h3>
+      {% if user.is_authenticated %}
+        <!-- booking form for logged-in users -->
+        <form method="post" class="appointment-form">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          <!-- selecting technician -->
+          <div class="form-group">
+            {{ form.technician.label_tag }} {{ form.technician }}
+          </div>
+          <!-- selecting date -->
+          <div class="form-group">
+            {{ form.date.label_tag }} {{ form.date }}
+          </div>
+          <!-- selecting time -->
+          <div class="form-group">
+            {{ form.time.label_tag }} {{ form.time }}
+          </div>
+          <!-- showing booking warning -->
+          <p class="booking-warning">
+            If we see that we are not able to meet your requests, we will cancel the appointment from our end within 2 hours.
+            Please check status of appointment on My Appointments page. Thank you!
+          </p>
+          <!-- allowing users to add requests, comments, and other notes regarding appointment-->
+          <div class="form-group">
+            {{ form.notes.label_tag }} {{ form.notes }}
+          </div>
+          <button type="submit" class="submit-btn">Book Appointment</button>
+        </form>
+      {% else %}
+        <!-- prompting user to log in or register -->
+        <p class="login-reminder">
+          Please <a href="{% url 'login' %}?next={{ request.path }}">log in</a> or 
+          <a href="{% url 'register' %}">register</a> to book this appointment.
+        </p>
+      {% endif %}
+      <!-- linking back to services page -->
+      <p><a href="{% url 'service_list' %}" class="back-link">← Back to services</a></p>
+    </div>
+  </div>
+{% endblock %}

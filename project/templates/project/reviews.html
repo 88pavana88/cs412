@@ -1,0 +1,40 @@
+<!-- 
+File: reviews.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Displays customer reviews with an option to filter by star rating.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h2>Customer Reviews</h2>
+<div class="service-container">
+  <!-- filtering reviews by rating -->
+  <form method="get" class="service-card appointment-form">
+    <div class="form-group">
+      <label for="rating"><strong>Filter by Rating:</strong></label>
+      <select name="rating" id="rating" class="styled-dropdown">
+        <option value="">All Ratings</option>
+        {% for rate in ratings %}
+        <option value="{{ rate }}" {% if request.GET.rating == rate %}selected{% endif %}>{{ rate }} stars</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="submit-btn">Filter</button>
+  </form>
+  <!-- showing review cards -->
+  {% if reviews %}
+    {% for review in reviews %}
+      <div class="service-card">
+        <p><strong>{{ review.rating }}/5 stars</strong> for {{ review.technician }}</p>
+        <p>"{{ review.comment }}"</p>
+        <p><em>Posted on {{ review.timestamp|date:"F j, Y" }}</em></p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <!-- showing message if no reviews exist -->
+    <p>No reviews have been posted yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

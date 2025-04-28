@@ -1,0 +1,22 @@
+<!-- File: delete_review_form.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Template to confirm deleting a review.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <!-- asking user to confirm review deletion -->
+  <div class="service-container">
+    <div class="service-card">
+      <h2>Delete Review</h2>
+      <p>Are you sure you want to delete your review for {{ review.technician }}?</p>
+      <!-- submitting delete confirmation -->
+      <form method="post" class="appointment-form">
+        {% csrf_token %}
+        <button type="submit" class="review-action-btn delete-review-btn">Yes</button>
+        <a href="{% url 'my_appointments' %}" class="review-action-btn edit-review-btn">Cancel</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

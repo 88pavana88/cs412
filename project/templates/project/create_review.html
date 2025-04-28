@@ -1,0 +1,24 @@
+<!-- File: create_review.html
+Author: Pavana Manoj (pavana@bu.edu), 04/26/2025
+Description: Template for submitting a review for a completed appointment.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+  <!-- displaying review form for specific appointment -->
+  <div class="service-container">
+    <div class="service-card wide-card">
+      <h2>Leave a Review for {{ view.appointment.service.name }} with {{ view.appointment.technician }}</h2>
+      <p><strong>Date:</strong> {{ view.appointment.date|date:"F j, Y" }} at {{ view.appointment.time }}</p>
+      <!-- submitting the review -->
+      <form method="post" class="appointment-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit-btn">Submit Review</button>
+      </form>
+      <!-- linking back to my appointments page after posting review -->
+      <p><a href="{% url 'my_appointments' %}" class="back-link">← Back to My Appointments</a></p>
+    </div>
+  </div>
+{% endblock %}
